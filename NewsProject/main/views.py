@@ -2,5 +2,5 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 
-def home(request):
+def index(request):
     return HttpResponse("HI! I'm try!!")
