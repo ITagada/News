@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
+from .models import Human
 
 
 def index(request):
-    return HttpResponse("HI! I'm try!!")
+    human = Human.objects.all()
+    return render(request, 'NewsProject/Humans.html', {'human': human, 'title': 'Люди'})
