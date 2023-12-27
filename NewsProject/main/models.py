@@ -11,7 +11,7 @@ class Human(models.Model):
     age = models.IntegerField(verbose_name='Возраст')
     born_at = models.DateField(verbose_name='Дата рождения')
     photo = models.ImageField(upload_to='media/%Y/%m/%d', null=True, default='Null', verbose_name='Фото')
-    profession = models.ForeignKey('Profession', on_delete=models.PROTECT, null=True, verbose_name='Профессия')
+    profession = models.ForeignKey('profession', on_delete=models.PROTECT, null=True, verbose_name='Профессия')
 
     class Meta:
         verbose_name = "Человек"

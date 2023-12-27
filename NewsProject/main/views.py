@@ -8,8 +8,7 @@ def index(request):
     professions = Profession.objects.all()
     context = {
         'human': human,
-        'title': 'Люди',
-        'professions': professions
+        'title': 'Люди'
     }
     return render(request, 'NewsProject/Humans.html', context=context)
 
@@ -20,7 +19,6 @@ def get_profession(request, profession_id):
     profession = Profession.objects.get(pk=profession_id)
     context = {
         'human': human,
-        'professions': professions,
         'profession': profession
     }
     return render(request, 'NewsProject/Profession.html', context=context)
