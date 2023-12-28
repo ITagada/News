@@ -14,7 +14,7 @@
 <div class="card mb-3">
   {{ forloop.counter }}
   <div class="card-header">
-    Профессия: <a href="{% url 'profession' item.profession.pk %}">{{ item.profession }}</a>
+    Профессия: <a href="{{ item.profession.get_absolut_url }}">{{ item.profession }}</a>
     <div class="media" style="display: flex">
       <div class="media-photo">
 
@@ -33,7 +33,7 @@
           <h5 class="card-title">{{ item.last_name }}</h5>
           <p class="card-text">{{ item.sex }}</p>
           <p class="card-text">{{ item.age }}</p>
-          <a href="#" class="btn btn-primary">Посмотреть</a>
+          <a href="{{ item.get_absolut_url }}" class="btn btn-primary">Посмотреть</a>
         </div>
         <div class="card-footer text-body-secondary">
           {{ item.born_at|date:'d-m-Y' }}

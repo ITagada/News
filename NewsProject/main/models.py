@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 
 
 class Human(models.Model):
@@ -13,6 +14,9 @@ class Human(models.Model):
     photo = models.ImageField(upload_to='media/%Y/%m/%d', null=True, default='Null', verbose_name='Фото')
     profession = models.ForeignKey('profession', on_delete=models.PROTECT, null=True, verbose_name='Профессия')
 
+    def get_absolut_url(self):
+        return reverse_lazy('view_human', kwargs={'human_id': self.pk})
+
     class Meta:
         verbose_name = "Человек"
         verbose_name_plural = "Люди"
@@ -21,6 +25,9 @@ class Human(models.Model):
 
 class Profession(models.Model):
     title = models.CharField(max_length=100, db_index=True, verbose_name='Профессия')
+
+    def get_absolut_url(self):
+        return reverse_lazy('profession', kwargs={'profession_id': self.pk})
 
     class Meta:
         verbose_name = 'Профессия'

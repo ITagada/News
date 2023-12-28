@@ -9,7 +9,7 @@
     {% show_professions %}
 
     {% for pr in professions %}
-    <a href="{% url 'profession' pr.pk %}" class="list-group-item list-group-item-action">{{ pr.title }}</a>
+    <a href="{{ pr.get_absolut_url }}" class="list-group-item list-group-item-action">{{ pr.title }}</a>
     {% endfor %}
 
 </div>

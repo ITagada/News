@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .models import Human, Profession
 
@@ -22,3 +22,12 @@ def get_profession(request, profession_id):
         'profession': profession
     }
     return render(request, 'NewsProject/Profession.html', context=context)
+
+
+def view_human(request, human_id):
+    # human_item = Human.object.get(pk=human_id)
+    human_item = get_object_or_404(Human, pk=human_id)
+    context = {
+        'human_item': human_item
+    }
+    return render(request, 'NewsProject/view_human.html', context=context)
