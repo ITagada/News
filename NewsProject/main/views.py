@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
+from .forms import HumanForm
 from .models import Human, Profession
 
 
@@ -31,3 +32,15 @@ def view_human(request, human_id):
         'human_item': human_item
     }
     return render(request, 'NewsProject/view_human.html', context=context)
+
+
+def add_human(request):
+    if request.method == 'POST':
+        form = HumanForm(request.POST)
+        if form.is_valid():
+            # human = Human.objects.create(**form.cleaned_data)
+            human = form.save()
+            return redirect(human)
+    else:
+        form = HumanForm()
+    return render(request, 'NewsProject/add_human.html', {'form': form})
