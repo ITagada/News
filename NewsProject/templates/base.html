@@ -32,41 +32,6 @@
                 {% endfor %}
             </div>
         </div>
-
-        <div class="col-md-8">
-            {% for item in human %}
-            <div class="card mb-3">
-                {{ forloop.counter }}
-                <div class="card-header">
-                    Профессия: <a href="{% url 'profession' item.profession.pk %}">{{ item.profession }}</a>
-                    <div class="media" style="display: flex">
-                        <div class="media-photo">
-                            {% if item.photo %}
-                            <img src="{{ item.photo.url }}" class='mr-3' width='350' alt="Photo">
-                            {% else %}
-                            <h6>Фото отсутствует</h6>
-                            {% endif %}
-                        </div>
-                        <div class="media-body">
-                            <div class="card-body">
-                                {% autoescape off %}
-                                <h5 class="card-title">{{ item.name }}</h5>
-                                {% endautoescape %}
-                                <h5 class="card-title">{{ item.last_name }}</h5>
-                                <p class="card-text">{{ item.sex }}</p>
-                                <p class="card-text">{{ item.age }}</p>
-                                <a href="#" class="btn btn-primary">Посмотреть</a>
-                            </div>
-                            <div class="card-footer text-body-secondary">
-                                {{ item.born_at|date:'d-m-Y' }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-
-        </div>
     </div>
 </div>
 
