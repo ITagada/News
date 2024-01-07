@@ -16,8 +16,8 @@ class HomeHuman(ListView):
         context['title'] = 'Главная страница'
         return context
 
-    # def get_queryset(self):
-    #     return Human.objects.filter(photo=not None)
+    def get_queryset(self):
+        return Human.objects.filter(age__range=(26, 40)).select_related('profession')
 
 
 class HumanProfession(ListView):
@@ -31,8 +31,8 @@ class HumanProfession(ListView):
         context['title'] = Profession.objects.get(pk=self.kwargs['pk'])
         return context
 
-    # def get_queryset(self):
-    #     return Human.objects.filter(pk=self.kwargs['profession_id'])
+    def get_queryset(self):
+        return Human.objects.filter(pk=self.kwargs['pk']).select_related('profession')
 
 
 class ViewHuman(DetailView):
@@ -45,7 +45,6 @@ class AddHuman(CreateView):
     model = Human
     form_class = HumanForm
     template_name = 'NewsProject/add_human.html'
-
 
 # def index(request):
 #     human = Human.objects.all()
@@ -77,13 +76,13 @@ class AddHuman(CreateView):
 #     return render(request, 'NewsProject/view_human.html', context=context)
 
 
-def add_human(request):
-    if request.method == 'POST':
-        form = HumanForm(request.POST)
-        if form.is_valid():
-            # human = Human.objects.create(**form.cleaned_data)
-            human = form.save()
-            return redirect(human)
-    else:
-        form = HumanForm()
-    return render(request, 'NewsProject/add_human.html', {'form': form})
+# def add_human(request):
+#     if request.method == 'POST':
+#         form = HumanForm(request.POST)
+#         if form.is_valid():
+#             # human = Human.objects.create(**form.cleaned_data)
+#             human = form.save()
+#             return redirect(human)
+#     else:
+#         form = HumanForm()
+#     return render(request, 'NewsProject/add_human.html', {'form': form})

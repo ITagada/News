@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HomeHuman, HumanProfession, ViewHuman, AddHuman, add_human
+from .views import HomeHuman, HumanProfession, ViewHuman, AddHuman
 
 # from .views import index, get_profession, view_human, add_human
 

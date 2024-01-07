@@ -1,8 +1,10 @@
 {% load newsproject_tags %}
 
-
-<div class="list-group">
-
+<div class="list-group" style="height: 20px; margin-top: 20px; font-size: 20;">
     {{ arg1 }} {{ arg2 }}
-
+    {% for pr in professions %}
+    <a href="{{ pr.get_absolut_url }}" class="list-group-item list-group-item-action">{{ pr.title }}<span
+            class="badge bg-primary rounded-pill"
+            style="width: 35px; color: wight; margin-left: 5px;">{{ pr.cnt }}</span></a>
+    {% endfor %}
 </div>

@@ -1,15 +1,16 @@
 {% load newsproject_tags %}
-
-
-<div class="list-group">
+{% get_list_professions as professions %}
+{% comment %}
+<!--<div class="list-group">-->
     <!--    {{ arg1 }} {{ arg2 }}-->
 
     <!--    {% get_list_professions as professions %}-->
 
     <!--    {% show_professions %}-->
 
-    {% for pr in professions %}
-    <a href="{{ pr.get_absolut_url }}" class="list-group-item list-group-item-action">{{ pr.title }}</a>
-    {% endfor %}
-
-</div>
+<!--    {% for pr in professions %}-->
+<!--    <a href="{{ pr.get_absolut_url }}" class="list-group-item list-group-item-action">{{ pr.title }} <span class="badge bg-primary rounded-pill" style="width: 35px; color: wight">14</span> </a>-->
+<!--    {% endfor %}-->
+<!--</div>-->
+{% endcomment %}
+{% show_professions %}
