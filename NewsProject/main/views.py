@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import HumanForm
 from .models import Human, Profession
+from .utils import MyMixin
 
 
-class HomeHuman(ListView):
+class HomeHuman(ListView, MyMixin):
     model = Human
     context_object_name = 'human'
     template_name = 'NewsProject/Humans.html'
@@ -14,6 +16,7 @@ class HomeHuman(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Главная страница'
+        context['mixin_group'] = self.get_prop()
         return context
 
     def get_queryset(self):
@@ -45,6 +48,7 @@ class AddHuman(CreateView):
     model = Human
     form_class = HumanForm
     template_name = 'NewsProject/add_human.html'
+    login_url = '/admin/'
 
 # def index(request):
 #     human = Human.objects.all()
