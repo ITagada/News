@@ -13,7 +13,7 @@
 <div class="card mb-3">
     {{ forloop.counter }}
     <div class="card-header">
-        Профессия: <a href="{{ human_item.profession.get_absolut_url }}">{{ human_item.profession.title }}</a>
+        Профессия: <a href="{{ human_item.profession.get_absolute_url }}">{{ human_item.profession.title }}</a>
     </div>
     <div class="card-body">
         {% if human_item.photo %}

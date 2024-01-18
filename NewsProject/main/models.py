@@ -14,7 +14,7 @@ class Human(models.Model):
     photo = models.ImageField(upload_to='media/%Y/%m/%d', null=True, default='Null', verbose_name='Фото')
     profession = models.ForeignKey('profession', on_delete=models.PROTECT, null=True, verbose_name='Профессия')
 
-    def get_absolut_url(self):
+    def get_absolute_url(self):
         return reverse_lazy('view_human', kwargs={'pk': self.pk})
 
     class Meta:
@@ -26,7 +26,7 @@ class Human(models.Model):
 class Profession(models.Model):
     title = models.CharField(max_length=100, db_index=True, verbose_name='Профессия')
 
-    def get_absolut_url(self):
+    def get_absolute_url(self):
         return reverse_lazy('profession', kwargs={'pk': self.pk})
 
     class Meta:

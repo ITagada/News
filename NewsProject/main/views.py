@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 
 from .forms import HumanForm
 from .models import Human, Profession
@@ -12,6 +13,7 @@ class HomeHuman(ListView, MyMixin):
     context_object_name = 'human'
     template_name = 'NewsProject/Humans.html'
     extra_context = {'title': 'Главная'}
+    paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -28,6 +30,7 @@ class HumanProfession(ListView):
     template_name = 'NewsProject/Profession.html'
     context_object_name = 'human'
     allow_empty = False
+    paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -49,6 +52,11 @@ class AddHuman(CreateView):
     form_class = HumanForm
     template_name = 'NewsProject/add_human.html'
     login_url = '/admin/'
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.save()
+        return redirect('view_human', pk=self.object.pk)
 
 # def index(request):
 #     human = Human.objects.all()
