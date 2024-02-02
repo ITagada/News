@@ -4,28 +4,44 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout
 
-from .forms import HumanForm
+from .forms import HumanForm, UserRegisterForm, UserLoginForm
 from .models import Human, Profession
 from .utils import MyMixin
 
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Регистрация прошла успешно')
-            return redirect('Login')
+            user = form.save()
+            login(request, user)
         else:
             messages.error(request, 'Упс! Что-то пошло не так!')
     else:
-        form = UserCreationForm()
+        form = UserRegisterForm()
     return render(request, 'NewsProject/register.html', {'form': form})
 
 
-def login(request):
-    return render(request, 'NewsProject/login.html')
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserLoginForm()
+    return render(request, 'NewsProject/login.html', {'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('Login')
+
 
 class HomeHuman(ListView, MyMixin):
     model = Human
