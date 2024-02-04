@@ -4,6 +4,7 @@ import re
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from captcha.fields import CaptchaField
 
 
 class UserRegisterForm(UserCreationForm):
@@ -16,7 +17,7 @@ class UserRegisterForm(UserCreationForm):
                                 widget=forms.PasswordInput(attrs={
                                     'class': 'form-control'
                                 }))
-    password2 = forms.CharField(label='Пароль',
+    password2 = forms.CharField(label='Подтверждение пароля',
                                 widget=forms.PasswordInput(attrs={
                                     'class': 'form-control'
                                 }))
@@ -24,6 +25,7 @@ class UserRegisterForm(UserCreationForm):
                              widget=forms.EmailInput(attrs={
                                  'class': 'form-control'
                              }))
+    captcha = CaptchaField(label='')
 
     class Meta:
         model = User

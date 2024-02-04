@@ -1,7 +1,17 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from django import forms
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from .models import Human, Profession
+
+
+class HumanAdminForm(forms.ModelForm):
+    content = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = Human
+        fields = '__all__'
 
 
 class HumanAdmin(admin.ModelAdmin):
@@ -12,6 +22,7 @@ class HumanAdmin(admin.ModelAdmin):
     list_editable = ['profession']
     fields = ('name', 'last_name', 'photo', 'profession', 'sex', 'age', 'born_at')
     readonly_fields = ('age', 'born_at')
+    form = HumanAdminForm
 
     def get_photo(self, obj):
         if obj.photo:
