@@ -8,7 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('captch/', include('captcha.urls')),
+    path('captcha/', include('captcha.urls')),
 ]
 
 if settings.DEBUG:

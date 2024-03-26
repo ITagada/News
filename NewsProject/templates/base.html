@@ -48,7 +48,7 @@
 
         <div class="col-md-4">
             <div class="list-group">
-                {% for pr in professions %}
+                {% for pr in profession %}
                 <a href="{% url 'profession' pr.id %}" class="list-group-item list-group-item-action">{{ pr.title }}</a>
                 {% endfor %}
             </div>
@@ -60,7 +60,7 @@
 <nav aria-label="..." style="margin-left: 900px">
     <ul class="pagination">
         {% if page_obj.has_previous %}
-        <li class="page-item disabled">
+        <li class="page-item">
             <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Пред...</a>
         </li>
         {% endif %}
@@ -76,7 +76,7 @@
         {% endif %}
         {% endfor %}
         {% if page_obj.has_next %}
-        <li class="page-item disabled">
+        <li class="page-item">
             <a class="page-link" href="?page={{ page_obj.next_page_number }}">След...</a>
         </li>
         {% endif %}

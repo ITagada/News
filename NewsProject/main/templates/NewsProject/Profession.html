@@ -11,38 +11,34 @@
 
 {% block content %}
 
-{% for item in human %}
 <div class="card mb-3">
-    {{ forloop.counter }}
     <div class="card-header">
-        Профессия: <a href="{% url 'profession' item.profession.pk %}">{{ item.profession.title }}</a>
-        <div class="media" style="display: flex">
-            <div class="media-photo">
-
-                {% if item.photo %}
-                <img src="{{ item.photo.url }}" class='mr-3' width='350' alt="Photo">
-                {% else %}
-                <h6>Фото отсутствует</h6>
-                {% endif %}
-
-            </div>
-            <div class="media-body">
-                <div class="card-body">
-                    {% autoescape off %}
-                    <h5 class="card-title">{{ item.name }}</h5>
-                    {% endautoescape %}
-                    <h5 class="card-title">{{ item.last_name }}</h5>
-                    <p class="card-text">{{ item.sex }}</p>
-                    <p class="card-text">{{ item.age }}</p>
-                    <a href="#" class="btn btn-primary">Посмотреть</a>
+        Профессия: <a href="{{ professions.get_absolute_url }}">{{ professions.title }}</a>
+    </div>
+    <div class="card-body">
+        {% if human %}
+            {% for human_instance in human %}
+            <div class="media mb-3">
+                <div class="media-photo">
+                    {% if human_instance.photo %}
+                        <img src="{{ human_instance.photo.url }}" class='mr-3' width='100' alt="Photo">
+                    {% else %}
+                        <h6>Фото отсутствует</h6>
+                    {% endif %}
                 </div>
-                <div class="card-footer text-body-secondary">
-                    {{ item.born_at|date:'d-m-Y' }}
+                <div class="media-body">
+                    <h5 class="card-title">{{ human_instance.name }} {{ human_instance.last_name }}</h5>
+                    <p class="card-text">{{ human_instance.sex }}</p>
+                    <p class="card-text">{{ human_instance.age }}</p>
+                    <p class="card-text">{{ human_instance.born_at|date:'d-m-Y' }}</p>
+                    <a href="{% url 'view_human' pk=human_instance.pk %}" class="btn btn-primary">Посмотреть</a>
                 </div>
             </div>
-        </div>
+            {% endfor %}
+        {% else %}
+            <p>Для этой профессии пока нет данных о людях.</p>
+        {% endif %}
     </div>
 </div>
-{% endfor %}
 
 {% endblock %}

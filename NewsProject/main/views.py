@@ -69,11 +69,14 @@ class HumanProfession(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = Profession.objects.get(pk=self.kwargs['pk'])
+        profession = get_object_or_404(Profession, pk=self.kwargs['pk'])
+        context['professions'] = profession
+        context['title'] = profession.title
         return context
 
     def get_queryset(self):
-        return Human.objects.filter(pk=self.kwargs['pk']).select_related('profession')
+        profession = get_object_or_404(Profession, pk=self.kwargs['pk'])
+        return Human.objects.filter(profession=profession).select_related('profession')
 
 
 class ViewHuman(DetailView):
